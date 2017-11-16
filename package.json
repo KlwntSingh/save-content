@@ -1,0 +1,28 @@
+{
+  "name": "save-content",
+  "version": "1.0.0",
+  "description": "Personal Clould Service for uploading content and files",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KlwntSingh",
+  "license": "ISC",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "aws-ses-mail": "^2.1.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mkdirp": "^0.5.1",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KlwntSingh/save-content.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KlwntSingh/save-content/issues"
+  },
+  "homepage": "https://github.com/KlwntSingh/save-content#readme"
+}
