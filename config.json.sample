@@ -1,0 +1,18 @@
+{
+    "port" : 3000,
+    "contentDir" : "content",
+    "logDir" : "PATH_FOR_APPLICATION_LOGS",
+    "logLevel" : "debug",
+    "console-log" : "SHOULD_BE_TRUE_IN_DEVELOPER_MACHINES",
+    "adminEmailsForCrash" : "RECEIVER_EMAIL_TO_SEND_NOTIFICATIONS_TO",
+    "shouldFireEmail" : true,
+    "maxLogFileSize" : "5mb",
+    "aws" : {
+        "ses" : {
+           "accessKeyId" : "AMAZON_ACCESS_KEY_ID",
+           "secretAccessKey" : "AMAZON_SECRET_ACCESS_KEY",
+           "region" : "us-west-2",
+           "senderEmail" : "SENDER_EMAIL_FOR_NOTIFICATION" 
+        }
+    }
+}

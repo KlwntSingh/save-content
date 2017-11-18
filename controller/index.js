@@ -11,8 +11,8 @@ app.get('/list', function(req, res){
 
 app.post('/', function(req, res){
     var body = {};
-    body.content = req.body;
-    // body.name = req.body.recommendedName;
+    body.content = req.body.content;
+    body.name = req.body.name;
     console.log(req.body);
     fileServices.saveText(body, function(err, status, data){
         responseController(err, status, data, res);

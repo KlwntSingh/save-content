@@ -1,9 +1,12 @@
 var moduleName = __filename;
 var fs = require('fs');
+var fsmkdir = require('mkdirp');
 var logger = require('services/CoreServices/Logger')(moduleName);
 var config = require('config.json');
 var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
 var fileUtils = require('utils/FileUtilities.js');
+
+fsmkdir.sync(config.contentDir);
 
 module.exports.listFiles = function(cb){
 

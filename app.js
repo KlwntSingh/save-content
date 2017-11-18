@@ -12,6 +12,8 @@ global.PORT = PORT;
 var express = require('express');
 var app = express();
 
+app.use(express.static('client'))
+
 require('middleware')(app);
 app.use(require('controller'));
 
