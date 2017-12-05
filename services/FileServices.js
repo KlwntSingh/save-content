@@ -15,10 +15,27 @@ module.exports.listFiles = function(cb){
             logger.alert(err);
             return cb(null, serviceStatusCodes.INTERNAL_SERVER_ERROR);
         }
+        var rTurn = {};
+        rTurn.files = files;
         cb(null, serviceStatusCodes.SUCCESS, files);
     })
 }
 
+module.exports.readContentOfFile = function(data, cb){
+    var nameOfFile = data.name;
+    fs.readFile(config.contentDir + "/" + nameOfFile, function(err, content){
+        if(err){
+            logger.alert(err);
+            return cb(null, serviceStatusCodes.INTERNAL_SERVER_ERROR);
+        }
+        var rTurn = {};
+        rTurn.content = content;
+        rTurn.fileName = nameOfFile;
+        rTurn.path = config.contentDir;
+        console.log(rTurn);
+        cb(null, serviceStatusCodes.SUCCESS, rTurn);
+    })
+}
 
 module.exports.saveText = function(data, cb){
         let fileName = fileUtils.getDateAsName(data.name);

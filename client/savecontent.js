@@ -1,5 +1,5 @@
 var URLS = {
-    CONTENT_SAVE : '/',
+    CONTENT_SAVE : '/text',
     FILE_SAVE : '/file'
 }
 function initialize(){
