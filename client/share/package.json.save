@@ -1,0 +1,12 @@
+{
+  "name": "share-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sharecontent.js",
+  "scripts": {
+     "ng" : "./node_modules/@angular/cli/bin/ng" 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

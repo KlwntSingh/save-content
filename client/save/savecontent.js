@@ -1,6 +1,6 @@
 var URLS = {
-    CONTENT_SAVE : '/text',
-    FILE_SAVE : '/file'
+    CONTENT_SAVE : '/save/text',
+    FILE_SAVE : '/save/file'
 }
 function initialize(){
     fileDragDropFn();

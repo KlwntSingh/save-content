@@ -12,10 +12,13 @@ global.PORT = PORT;
 var express = require('express');
 var app = express();
 
-app.use(express.static('client'))
 
 require('middleware')(app);
 app.use(require('controller'));
+
+app.use(function(req, res){
+    res.redirect('/save');
+})
 
 // starting application server
 var server = app.listen(PORT);
