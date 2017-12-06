@@ -26,7 +26,7 @@ module.exports.readContentOfFile = function(data, cb){
     fs.readFile(config.contentDir + "/" + nameOfFile, function(err, content){
         if(err){
             logger.alert(err);
-            return cb(null, serviceStatusCodes.INTERNAL_SERVER_ERROR);
+            return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
         }
         var rTurn = {};
         rTurn.content = content;
