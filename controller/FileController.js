@@ -30,7 +30,7 @@ app.get('/:id', function(req, res){
     fileServices.readContentOfFile(data, function(err, status, rs){
         if(err){
             logger.error(err);
-            responseController(err, null, null, res);
+            responseController(err, status, null, res);
             return err;
         }
         rs.file = true;
