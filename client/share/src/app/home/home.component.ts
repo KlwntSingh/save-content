@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { RoomComponent } from './../room/room.component';
-import { HttpServices } from './../core/http.services';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'home',
@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   private roomname: string;  
 
-  constructor(public dialog: MatDialog, public _httpServices: HttpServices){
+  constructor(public dialog: MatDialog, public _homeServices: HomeService){
 
   }
 
@@ -20,20 +20,16 @@ export class HomeComponent implements OnInit {
     setTimeout(function(){
       let dialogRef = mine.dialog.open(RoomComponent, {
         width: '750px',
+        disableClose: true,
         data: {
-             roomname: "asdf", 
+             roomName: "asdf", 
              passwordRequired: false, 
              password:null, 
              cb: function(cb){
-                mine._httpServices.get("/kulwant").subscribe((res)=>{
-                  if(true){
-                    cb(false);
-                  }
-                }, () =>{
-                  if(true){
-                    cb(false);
-                  }
-                })
+               console.log(this);
+                mine._homeServices.checkOrCreateRoom("http://localhost:3000/share/room/validate", this, function(status){
+                  cb(status);
+                });
              } 
         }
       })

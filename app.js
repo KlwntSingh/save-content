@@ -12,6 +12,7 @@ global.PORT = PORT;
 var express = require('express');
 var app = express();
 
+require('./appinit');
 
 require('middleware')(app);
 app.use(require('controller'));

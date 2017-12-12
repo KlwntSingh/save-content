@@ -1,4 +1,7 @@
 module.exports = {
     INTERNAL_SERVER_ERROR : 500,
-    SUCCESS : 200
+    SUCCESS : 200,
+    UNAUTHORISED : 401,
+    CREATED: 201,
+    NOT_FOUND : 404
 }

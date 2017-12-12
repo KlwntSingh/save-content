@@ -2,40 +2,18 @@ var moduleName = __filename;
 
 var app = require('express')();
 var fs = require('fs');
-var fileServices = require('services/FileServices.js');
+var roomServices = require('services/share/RoomContentService.js');
 var responseController = require('controller/ResponseController');
 var fileUpload = require("middleware/FileHandler.js");
 var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
 var logger = require('services/CoreServices/Logger')(moduleName);
-
+var authorizationMiddleware = require("middleware/cookie.js");
 
 app.get('/list', function(req, res){
-    logger.info("Request came for file listing");
-    fileServices.listFiles(function(err, status, data){
+    console.log(req.locals);
+    logger.info("Request came for room listing");
+    roomServices.listContent(req.locals, function(err, status, data){
         responseController(err, status, data, res);
-    })
-})
-
-app.get('/favicon.ico', function(req, res) {
-    res.status(204);
-    res.end()
-});
-
-
-app.get('/:id', function(req, res){
-    var id = req.params.id;
-    logger.info("Request came for file content for file: " + id);
-    var data = {};
-    data.name = id;
-    fileServices.readContentOfFile(data, function(err, status, rs){
-        if(err){
-            logger.error(err);
-            responseController(err, null, null, res);
-            return err;
-        }
-        rs.file = true;
-        rs.path = rs.path + "/" + rs.fileName
-        responseController(err, status, rs, res);
     })
 })
 

@@ -2,7 +2,7 @@ var moduleName = __filename;
 
 var app = require('express')();
 var fs = require('fs');
-var fileServices = require('services/FileServices.js');
+var fileServices = require('services/save/FileServices.js');
 var responseController = require('controller/ResponseController');
 var fileUpload = require("middleware/FileHandler.js");
 var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
