@@ -17,7 +17,7 @@ app.get('/files', function(req, res){
     })
 })
 
-app.post('/file', fileUpload.single('file'),function(req, res){
+app.post('/file', fileUpload.array('file[]'),function(req, res){
     logger.info("Request came for uploading file");
     responseController(null, serviceStatusCodes.SUCCESS, {message : "success"}, res);
 })

@@ -21,8 +21,9 @@ export class FileUploadComponent{
       this.files = event.files;
       this._fileuploadService.callOnDropFinishFn(event);
       for (var file of event.files) {
-        file.fileEntry.file(info => {
-          console.log(info);
+        console.log(file);
+        file.fileEntry.file(event => {
+            console.log(event);
         });
       }
     }

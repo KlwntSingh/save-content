@@ -13,5 +13,6 @@ export const BROWSER = {
 
 export const API = {
     VALIDATE : CONSTANT.base + "/share/room/validate",
-    ROOM_CONTENT : CONSTANT.base + "/share/room/content/files"
+    GET_ROOM_CONTENT : CONSTANT.base + "/share/room/content/files",
+    UPLOAD_ROOM_CONTENT : CONSTANT.base + "/share/room/content/file"
 }

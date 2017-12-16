@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpResponseBase, HttpResponse, HttpHead
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { UploadEvent } from 'ngx-file-drop';
 
 @Injectable()
 export class FileUploadService {
@@ -10,7 +11,7 @@ export class FileUploadService {
     
     private onDropFinish;
     
-    public callOnDropFinishFn(event){
+    public callOnDropFinishFn(event: UploadEvent){
         return this.onDropFinish(event);
     }
     

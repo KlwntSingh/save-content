@@ -10,15 +10,19 @@ import { RoomContentComponent } from './roomcontent.component'
 import { RoomContentService } from './roomcontent.service'
 import { CommonService } from './../common.service'
 import { FileUploadModule  } from './fileupload/fileupload.module'
+import { FileListingComponent } from './filelisting/filelisting.component'
+import { FileListingService } from './filelisting/filelisting.service'
+
 
 @NgModule({
   declarations: [
+    FileListingComponent,
     RoomContentComponent
   ],
   entryComponents: [ ],
   imports: [ MaterialModule, FormsModule, CoreModule, FileUploadModule ],
   exports : [RouterModule],
-  providers: [ CommonService, CookieService, RoomContentService ] 
+  providers: [ CommonService, CookieService, FileListingService, RoomContentService ] 
   
 })
 export class RoomContentModule { }
