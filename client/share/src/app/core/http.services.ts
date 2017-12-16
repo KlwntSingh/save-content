@@ -12,17 +12,23 @@ export class HttpServices {
     }
 
     public get(url: string, scb, fcb){
-        return this.http.get(url).map((res)=>{console.log(res);return res;})
+        return this.http.get(url, {
+            observe : 'response',
+            headers : this._httpInterceptor.getRequestHeaders()
+        }).map((res)=>{console.log(res);return res;})
                         .subscribe(scb, fcb);
     }
 
     public post(url: string, json:any, scb, fcb){
         return this.http.post<any>(url, json, {
                     observe : 'response',
-                    headers : this._httpInterceptor.getRequestHeaders()
+                     headers : this._httpInterceptor.getRequestHeaders()
                 })
-                .map((res) => {console.log(res); return res;})
-                .subscribe(scb, fcb)
+                // .map((res) => {console.log(res); return res;})
+                .subscribe(function(res){
+                    console.log(res.headers)
+                    scb(res);
+                }, fcb)
     }
   
 }

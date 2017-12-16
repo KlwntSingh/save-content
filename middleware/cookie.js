@@ -13,7 +13,7 @@ module.exports.setCookie = function(req, res, next){
             logger.alert(err);
             return next(err);
         }
-        res.setHeader("authorization", "Session " + token);
+        res.setHeader("authorization", token);
         next();
     });
 }

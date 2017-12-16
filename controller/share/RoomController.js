@@ -4,7 +4,6 @@ var app = require('express')();
 var fs = require('fs');
 var roomServices = require('services/share/RoomService.js');
 var responseController = require('controller/ResponseController');
-var fileUpload = require("middleware/FileHandler.js");
 var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
 var logger = require('services/CoreServices/Logger')(moduleName);
 var authorizationMiddleware = require("middleware/cookie.js");

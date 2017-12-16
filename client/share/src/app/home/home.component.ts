@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { RoomComponent } from './../room/room.component';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { HomeService } from './home.service';
+import { RoomComponent } from './room/room.component';
 
 @Component({
   selector: 'home',
-  template : '<div></div>'
+  template : '<div><router-outlet></router-outlet></div>'
 })
 export class HomeComponent implements OnInit {
 
   private roomname: string;  
 
-  constructor(public dialog: MatDialog, public _homeServices: HomeService){
+  constructor(private dialog: MatDialog, private _homeServices: HomeService){
 
   }
 
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
              password:null, 
              cb: function(cb){
                console.log(this);
-                mine._homeServices.checkOrCreateRoom("http://localhost:3000/share/room/validate", this, function(status){
+                mine._homeServices.checkOrCreateRoom(this, function(status){
                   cb(status);
                 });
              } 

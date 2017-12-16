@@ -4,7 +4,7 @@ var app = require('express')();
 var fs = require('fs');
 var fileServices = require('services/save/FileServices.js');
 var responseController = require('controller/ResponseController');
-var fileUpload = require("middleware/FileHandler.js");
+var fileUpload = require("middleware/save/FileHandler.js");
 var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
 var logger = require('services/CoreServices/Logger')(moduleName);
 

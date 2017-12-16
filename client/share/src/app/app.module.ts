@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { RoomComponent } from './room/room.component';
+import { RouterModule, Routes } from '@angular/router';
+
 import { MaterialModule } from './core/material.module';
-import { HomeComponent } from './home/home.component';
+import { AppComponent } from './app.component';
+import { appRoutes} from './app.routes'
 import { HomeModule } from './home/home.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { HomeModule } from './home/home.module';
     BrowserModule,
     MaterialModule,
     FormsModule,
+    RouterModule.forRoot(appRoutes),
     HomeModule
   ],
   providers: [],

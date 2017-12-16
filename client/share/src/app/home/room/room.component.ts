@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
-
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 import {IRoom} from './room.interface'
 
 @Component({
@@ -15,12 +15,13 @@ import {IRoom} from './room.interface'
       @Inject(MAT_DIALOG_DATA) public data: any) { }
     
     public gotRoomName(){
-      console.log(this.data);
-      this.data.cb((result)=>{
+      var self = this;
+      console.log(self.data);
+      self.data.cb((result)=>{
         if(!result){
-          this.data.passwordRequired = !result;
+          self.data.passwordRequired = !result;
         }else{
-          this.dialogRef.close();
+          self.dialogRef.close();
         }
       })
     }

@@ -9,7 +9,7 @@ module.exports = function(err, status, data, res){
         if(data.file){
            return res.download(data.path, data.fileName); 
         }
-        // res.cookie("Access-Control-Expose-Headers", "Authorization");
+        res.setHeader("Access-Control-Expose-Headers", "authorization");
         res.send(data);
         res.end();
     }

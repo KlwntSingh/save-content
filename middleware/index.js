@@ -7,8 +7,6 @@ module.exports = function(app){
     app.use(bodyParser.urlencoded({extended : true}));
     app.use(cors({
         origin: true,
-        "access-control-expose-headers" : 'authorization',
-        "access-control-allow-headers" : 'authorization',
         credentials: true
     }));
     app.use(function(req, res, next){

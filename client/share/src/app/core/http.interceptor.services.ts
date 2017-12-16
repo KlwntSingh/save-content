@@ -4,6 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import 'rxjs/add/operator/map'
 
+import { APP_CONSTANTS } from './../app.constant'
 @Injectable()
 export class HttpInterceptorServices {
 
@@ -12,7 +13,7 @@ export class HttpInterceptorServices {
     }
 
     public getRequestHeaders() : HttpHeaders{
-        return new HttpHeaders().set("Authorization", "Session " + this._cookieService.get("token"));
+        return new HttpHeaders().set(APP_CONSTANTS.AUTHORIZATION_TOKEN_NAME, "Session " + this._cookieService.get("token"));
     }
 
     public getRequestOption(){

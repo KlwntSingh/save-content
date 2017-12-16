@@ -6,13 +6,15 @@ var serviceStatusCodes = require('constants/ServiceStatusCodes.js');
 let shareDir = config.shareDir;
 
 module.exports.listContent = function(data, cb){
-    var roomPath = shareDir + "/" +  data.roomName;
+    var roomPath = shareDir + "/" +  data.roomName + "/";
+    console.log(roomPath);
     fs.readdir(roomPath, function(err, rs){
         if(err){
             logger.error(err);
             logger.alert(err);
             return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
         }
+        console.log(rs);
         return cb(null, serviceStatusCodes.SUCCESS, rs);
     })
 }

@@ -4,6 +4,7 @@
   "description": "Personal Clould Service for uploading content and files",
   "main": "app.js",
   "scripts": {
+    "nodemon": "./node_modules/nodemon/bin/nodemon.js .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "KlwntSingh",
@@ -21,7 +22,9 @@
     "winston": "^2.4.0",
     "winston-daily-rotate-file": "^1.7.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.12.5"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/KlwntSingh/save-content.git"
