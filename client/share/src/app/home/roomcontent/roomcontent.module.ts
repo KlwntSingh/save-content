@@ -12,7 +12,7 @@ import { CommonService } from './../common.service'
 import { FileUploadModule  } from './fileupload/fileupload.module'
 import { FileListingComponent } from './filelisting/filelisting.component'
 import { FileListingService } from './filelisting/filelisting.service'
-
+import { Crypto } from './../../core/crypto.services'
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { FileListingService } from './filelisting/filelisting.service'
   entryComponents: [ ],
   imports: [ MaterialModule, FormsModule, CoreModule, FileUploadModule ],
   exports : [RouterModule],
-  providers: [ CommonService, CookieService, FileListingService, RoomContentService ] 
+  providers: [ CommonService, CookieService, FileListingService, RoomContentService, Crypto ] 
   
 })
 export class RoomContentModule { }

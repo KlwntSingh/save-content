@@ -7,10 +7,11 @@ import { FileUploadService } from './fileupload/fileupload.service'
 import { UploadEvent, UploadFile } from 'ngx-file-drop';
 import { FileListingComponent } from './filelisting/filelisting.component'
 import { FileListingService } from './filelisting/filelisting.service'
+import { Crypto } from './../../core/crypto.services'
 
 @Component({
   selector: 'roomcontent',
-  template : '<div id="roomcontent"><filelisting-ui></filelisting-ui><fileupload-ui></fileupload-ui></div>'
+  template : '<div id="roomcontent"><fileupload-ui></fileupload-ui><filelisting-ui></filelisting-ui></div>'
 })
 export class RoomContentComponent implements OnInit{
 

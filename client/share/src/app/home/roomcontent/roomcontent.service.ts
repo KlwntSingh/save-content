@@ -11,7 +11,7 @@ import { IRoom } from './../room/room.interface'
 import { BROWSER } from './../../app.constant'
 import { UploadFile } from 'ngx-file-drop';
 import { AsyncFor } from './../../core/asyncFor.services';
-
+import { Crypto } from './../../core/crypto.services'
 @Injectable()
 export class RoomContentService {
 
@@ -41,8 +41,16 @@ export class RoomContentService {
         const formData = new FormData();
         self.asyncFor.asyncForAdv(files, (file, cb)=>{
             file.fileEntry.file(event => {
-                formData.append("file[]", event);
-                cb();
+                let reader = new FileReader();
+                reader.onload = (ev: any) => {
+                    console.log("content");
+                    let text = ev.target.result;
+                    let blob = new Blob([text], {type: event.type});
+                    var ff = new File([blob], event.name, {type: event.type});
+                    formData.append("file[]", ff);
+                    cb();
+                };
+                reader.readAsArrayBuffer(event);
             });
         }, fn)
     }
