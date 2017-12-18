@@ -20,7 +20,7 @@ export class CommonService implements OnDestroy {
              return self._router.navigate([BROWSER.APP_HOME]);
         }
         else{
-            console.error(res);
+            console.log(res);
         }
     }
     

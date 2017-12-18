@@ -10,24 +10,24 @@ import { FileListingService } from './filelisting/filelisting.service'
 
 @Component({
   selector: 'roomcontent',
-  template : '<div id="roomcontent"><filelisting-ui></filelisting-ui><fileupload-ui></fileupload-ui></div>'
+  template : '<div id="roomcontent"><filelisting-ui [files]="files" (ItemClick)="deleteItem($event)"></filelisting-ui><fileupload-ui></fileupload-ui></div>'
 })
 export class RoomContentComponent implements OnInit{
 
     private roomname: string;
+    private files: any;
     
     constructor(private roomContentService: RoomContentService,
         private route: ActivatedRoute, private _fileuploadService: FileUploadService, private _fileListingService: FileListingService){
 
     }
 
-    ngOnInit() {
+    ngOnInit() { 
         var self = this;
         console.log("sdfasdfasd");
         let roomname = self.route.snapshot.paramMap.get('roomname');
-        self.roomContentService.getListOfFiles(roomname, (res)=>{
-            let files = res.body;
-            self._fileListingService.setFiles(files);
+        self.roomContentService.getListOfFiles(roomname, (files)=>{
+            self.files = files;
         }, (res)=>{
             
         })
@@ -39,5 +39,21 @@ export class RoomContentComponent implements OnInit{
               this.roomContentService.uploadFiles(files);
             }
         })
+        
+    }
+    public deleteItem(event) {
+            console.log(event);
+            console.log("delete file claled");
+            var self = this;
+            let fileName = event.fileName;
+            this.roomContentService.deleteFile(fileName, () => {
+                console.log("deleted file" + fileName);
+                var newarr = self.files.filter((item)=>{
+                    return item != fileName;
+                })
+                self.files = newarr;
+            }, ()=>{
+                
+            });
     }
 }

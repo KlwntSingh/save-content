@@ -15,37 +15,29 @@ module.exports.listContent = function(data, cb){
             return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
         }
         console.log(rs);
+        rs = rs.map((item)=>{
+            return {
+                name : item,
+                type: item.split("\.")[1]
+            }
+        });
         return cb(null, serviceStatusCodes.SUCCESS, rs);
     })
 }
 
-module.exports.getRoomByName = function(data, cb){
-    var self = this;
-    roomDao.findRoomByName(data, function(err, rs){
+module.exports.deleteFileInRoom = function(data, cb){
+    let filePath = shareDir + "/" + data.roomName + "/" + data.fileName;
+    fs.unlink(filePath, function(err, rs){
         if(err){
             logger.error(err);
             logger.alert(err);
             return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
         }
-        if(rs && rs.length >0){
-            cb(null, serviceStatusCodes.SUCCESS, rs[0]);
-        }else{
-            if(data.password){
-                return cb({ message : "Authorization required" }, serviceStatusCodes.UNAUTHORISED);
-            }else{
-                self.createRoom(data, cb)
-            }
-        }
+        return cb(null, serviceStatusCodes.SUCCESS, {message : "success"});
     });
 }
 
-module.exports.createRoom = function(data, cb){
-    roomDao.createRoom(data, function(err, rs){
-        if(err){
-            logger.error(err);
-            logger.alert(err);
-            return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
-        }
-        cb(null, serviceStatusCodes.CREATED);
-    });
+module.exports.getFile = function(data, cb){
+    let filePath = shareDir + "/" + data.roomName + "/" + data.fileName;
+    return cb(null, serviceStatusCodes.SUCCESS, {path : filePath, fileName: data.fileName});
 }

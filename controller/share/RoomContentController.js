@@ -17,6 +17,25 @@ app.get('/files', function(req, res){
     })
 })
 
+app.get('/file/:name', function(req, res){
+    console.log(req.locals);
+    logger.info("Request came for room file content");
+    roomContentServices.getFile(req.locals, function(err, status, data){
+        responseController(err, status, data, res);
+    })
+})
+
+app.delete('/file/:name',function(req, res){
+    logger.info("Request came for deleting file in room");
+    let data = {};
+    data.fileName = req.params.name;
+    data.roomName = req.locals.roomName;
+    
+    roomContentServices.deleteFileInRoom(data, function(err, status, rs){
+        responseController(err, status, rs, res);
+    })
+})
+
 app.post('/file', fileUpload.array('file[]'),function(req, res){
     logger.info("Request came for uploading file");
     responseController(null, serviceStatusCodes.SUCCESS, {message : "success"}, res);

@@ -23,7 +23,17 @@ export class RoomContentService {
         console.log(roomname);
         var self  = this;
         var fn = self._commonService;
-        self._httpService.get(API.GET_ROOM_CONTENT, scb, function(res){
+        console.log(API.GET_ALL_ROOM_CONTENT);
+        self._httpService.get(API.GET_ALL_ROOM_CONTENT, (res)=>{
+            let files = res.body;
+            scb(files.map((item)=>{
+                return {
+                    name : item.name,
+                    type: item.type,
+                    url: API.ROOM_CONTENT + "/" + item.name
+                }
+            }));
+        }, function(res){
             fn.httpFailureCheck(res);   
         });
     }
@@ -31,7 +41,7 @@ export class RoomContentService {
     public uploadFiles(files: UploadFile[]){
         var self = this;
         let fn = function(){
-            self._httpService.post(API.UPLOAD_ROOM_CONTENT, formData, (res)=>{
+            self._httpService.post(API.ROOM_CONTENT, formData, (res)=>{
                 console.log(res);
             }, (res)=>{
                 console.log(res);
@@ -45,5 +55,15 @@ export class RoomContentService {
                 cb();
             });
         }, fn)
+    }
+    
+    public deleteFile(fileName: string, cb, fcb){
+        var self = this;
+        self._httpService.delete(API.ROOM_CONTENT + "/" + fileName, (res)=>{
+            console.log(res);
+            cb();
+        }, (res)=>{
+            console.log(res);
+        })
     }
 }
