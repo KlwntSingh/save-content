@@ -15,7 +15,7 @@ import { AsyncFor } from './../../core/asyncFor.services';
 @Injectable()
 export class RoomContentService {
 
-    public constructor(private _httpService: HttpServices, private _commonService: CommonService, private _router: Router, private asyncFor : AsyncFor){
+    public constructor(private _httpService: HttpServices, private _commonService: CommonService, private _router: Router, private asyncFor : AsyncFor, private _cookieService: CookieService){
 
     }
 
@@ -27,24 +27,61 @@ export class RoomContentService {
         self._httpService.get(API.GET_ALL_ROOM_CONTENT, (res)=>{
             let files = res.body;
             scb(files.map((item)=>{
-                return {
-                    name : item.name,
+                let rTurn = {
+                    fileName : item.fileName,
                     type: item.type,
-                    url: API.ROOM_CONTENT + "/" + item.name
-                }
+                    url: API.ROOM_CONTENT + "/" + item.fileName
+                };
+                console.log(item);
+                if(item.type == "jpg" || item.type == "png")
+                self.getFileContent(rTurn, (content)=>{
+                    console.log(content);
+                    // let blob = new Blob([content], {type: 'image/jpeg'});
+                    rTurn["localurl"] = 'data:image/PNG;base64,' + content
+                }, ()=>{})
+                return rTurn
             }));
         }, function(res){
             fn.httpFailureCheck(res);   
         });
     }
     
-    public uploadFiles(files: UploadFile[]){
+    public getFileContent(file: any, scb, fcb){
+        var self  = this;
+        var fn = self._commonService;
+        self._httpService.getImage(file.url, (res)=>{
+                let files = res.body;
+                console.log(files.img);
+                scb(files.img);
+            }, function(res){
+                alert()
+                fn.httpFailureCheck(res);   
+        });
+    }
+    
+    public uploadFiles(files: UploadFile[], scb, fcb){
         var self = this;
         let fn = function(){
             self._httpService.post(API.ROOM_CONTENT, formData, (res)=>{
-                console.log(res);
+                let files = res.body;
+                scb(files.map((item)=>{
+                let rTurn = {
+                    fileName : item.fileName,
+                    type: item.type,
+                    url: API.ROOM_CONTENT + "/" + item.fileName
+                };
+                console.log(item);
+                if(item.type == "jpg" || item.type == "png")
+                self.getFileContent(rTurn, (content)=>{
+                    console.log(content);
+                    // let blob = new Blob([content], {type: 'image/jpeg'});
+                    rTurn["localurl"] = 'data:image/PNG;base64,' + content
+                }, ()=>{})
+                return rTurn
+            }));
+                // scb(res.body);
             }, (res)=>{
-                console.log(res);
+                fcb(res);
             })
         }
         
@@ -65,5 +102,11 @@ export class RoomContentService {
         }, (res)=>{
             console.log(res);
         })
+    }
+    
+    public downloadFile(fileName: string, cb, fcb){
+        var self = this;
+        let token = self._cookieService.get("token");
+        window.open(API.ROOM_CONTENT + "/" + fileName + "/download?token="+token);
     }
 }

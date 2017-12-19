@@ -17,10 +17,30 @@ app.get('/files', function(req, res){
     })
 })
 
+app.get('/file/:name/download', function(req, res){
+    console.log(req.locals);
+    logger.info("Request came for room file content");
+    
+    let data = {};
+    data.fileName = req.params.name;
+    data.roomName = req.locals.roomName;
+    
+    roomContentServices.getFileForDownload(data, function(err, status, data){
+        responseController(err, status, data, res);
+    })
+})
+
 app.get('/file/:name', function(req, res){
     console.log(req.locals);
     logger.info("Request came for room file content");
-    roomContentServices.getFile(req.locals, function(err, status, data){
+    
+    let data = {};
+    data.fileName = req.params.name;
+    data.roomName = req.locals.roomName;
+    
+    roomContentServices.getFile(data, function(err, status, data){
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.setHeader('Content-Length', data.img.length);
         responseController(err, status, data, res);
     })
 })
@@ -38,7 +58,18 @@ app.delete('/file/:name',function(req, res){
 
 app.post('/file', fileUpload.array('file[]'),function(req, res){
     logger.info("Request came for uploading file");
-    responseController(null, serviceStatusCodes.SUCCESS, {message : "success"}, res);
+    console.log(req.files);
+    var arr = [];
+    if(req.files){
+        for(var file of req.files){
+            let mimeTypeArr = file.mimetype.split("/");
+            arr.push({
+                fileName : file.filename,
+                type: mimeTypeArr[mimeTypeArr.length - 1]
+            })
+        }
+    }
+    responseController(null, serviceStatusCodes.SUCCESS, arr, res);
 })
 
 app.post('/text', function(req, res){

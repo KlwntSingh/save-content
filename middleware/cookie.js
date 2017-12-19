@@ -19,7 +19,7 @@ module.exports.setCookie = function(req, res, next){
 }
 
 module.exports.getCookie = function(req, res, next){
-    let authorization = req.headers.authorization;
+    let authorization = req.headers.authorization || "Session " + req.query.token;
 
     if(authorization){
         let arr = authorization.split(" ");

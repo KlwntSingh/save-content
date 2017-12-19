@@ -20,6 +20,17 @@ export class HttpServices {
                         .subscribe(scb, fcb);
     }
     
+    public getImage(url: string, scb, fcb){
+        console.log(url);
+        return this.http.get(url, {
+            headers: {
+                accept : "image/*"
+            },
+            observe : 'response'
+        }).map((res)=>{console.log(res);return res;})
+                        .subscribe(scb, fcb);
+    }
+    
     public delete(url: string, scb, fcb){
         return this.http.delete(url, {
             observe : 'response'

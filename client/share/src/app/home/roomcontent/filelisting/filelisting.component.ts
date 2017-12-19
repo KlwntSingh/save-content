@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, Output, EventEmitter  } from '@angular/core';
 
-import { FileListingService } from './filelisting.service'
 
 @Component({
   selector: 'filelisting-ui',
-  templateUrl : './filelisting-ui.html'
+  templateUrl : './filelisting-ui.html',
+  styleUrls: ['filelisting-ui.css'],
 })
-export class FileListingComponent implements OnInit{
+export class FileListingComponent {
     
     // private files: any[];
     @Input()
@@ -15,17 +15,25 @@ export class FileListingComponent implements OnInit{
     @Output()
     private ItemClick = new EventEmitter();
     
-    public constructor(private fileListing: FileListingService){
+    public constructor(){
         
     }
     
-    ngOnInit(){
-        // this.files = this.fileListing.getFiles();
+    public deleteItem(file: any){
+        var self = this;
+        let fileName = file.fileName;
+        self.ItemClick.emit({
+            action: 'delete',
+            fileName : fileName
+        });
     }
     
-    public onItemClick(fileName: string){
+    public downloadItem(file: any){
         var self = this;
+        console.log(file);
+        let fileName = file.fileName;
         self.ItemClick.emit({
+            action: 'download',
             fileName : fileName
         });
     }

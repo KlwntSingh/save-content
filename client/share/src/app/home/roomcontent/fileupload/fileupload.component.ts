@@ -1,5 +1,5 @@
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop';
 
@@ -11,21 +11,17 @@ import { FileUploadService } from './fileupload.service'
 })
 export class FileUploadComponent{
 
-    public files: UploadFile[] = [];
+    
+    @Output()
+    private filesDropped = new EventEmitter();
     
     public constructor(private _fileuploadService: FileUploadService){
       
     }
    
     public dropped(event: UploadEvent) {
-      this.files = event.files;
-      this._fileuploadService.callOnDropFinishFn(event);
-      for (var file of event.files) {
-        console.log(file);
-        file.fileEntry.file(event => {
-            console.log(event);
-        });
-      }
+      var self = this;
+      self.filesDropped.emit(event);
     }
    
     public fileOver(event){

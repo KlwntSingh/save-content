@@ -16,9 +16,10 @@ module.exports.listContent = function(data, cb){
         }
         console.log(rs);
         rs = rs.map((item)=>{
+            let extArr =  item.split("\.");
             return {
-                name : item,
-                type: item.split("\.")[1]
+                fileName : item,
+                type: extArr[extArr.length - 1]
             }
         });
         return cb(null, serviceStatusCodes.SUCCESS, rs);
@@ -39,5 +40,21 @@ module.exports.deleteFileInRoom = function(data, cb){
 
 module.exports.getFile = function(data, cb){
     let filePath = shareDir + "/" + data.roomName + "/" + data.fileName;
-    return cb(null, serviceStatusCodes.SUCCESS, {path : filePath, fileName: data.fileName});
+    fs.readFile(filePath, function(err, data){
+        if(err){
+            logger.error(err);
+            logger.alert(err);
+            return cb(err, serviceStatusCodes.INTERNAL_SERVER_ERROR);
+        }
+        var img = new Buffer(data).toString('base64');
+        return cb(null, serviceStatusCodes.SUCCESS, {img : img});
+    })
+}
+
+module.exports.getFileForDownload = function(data, cb){
+    let filePath = shareDir + "/" + data.roomName + "/" + data.fileName;
+    let rs = {};
+    rs.file = true;
+    rs.path = filePath;
+    return cb(null, serviceStatusCodes.SUCCESS, rs);
 }
